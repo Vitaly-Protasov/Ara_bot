@@ -13,7 +13,7 @@ def begin(message):
     client_id = message.from_user.id
     bot.send_message(
         chat_id = client_id,
-        text = f'Hello, {user_name}!\nI can help you to translate a text from Georgian-Latin to Russian'
+        text = f'Hello, {user_name}!\nI can help you to translate a text from Georgian-Latin to Russian.\nJust send me a text!'
         )
 
 @bot.message_handler(content_types=['text'])
