@@ -35,6 +35,7 @@ class Functions:
         # return itranslate(text, to_lang=target_lang)
 
         file_request = 'request.js'
+        text = text.replace('\n', ' ').replace('\'', '\"')
         template = f"""const translate = require('@iamtraction/google-translate');
         translate(
             '{text}',
