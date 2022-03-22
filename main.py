@@ -2,6 +2,7 @@ from transliterate import translit
 from itranslate import itranslate
 import urllib.parse
 from enum import Enum
+from Naked.toolshed.shell import muterun_js
 
 
 class Functions:
@@ -28,10 +29,26 @@ class Functions:
     def get_translation(
         self,
         text: str,
+        source_lang: Enum = 'ka',
         target_lang: Enum = 'ru'    
     ) -> str:
-        return itranslate(text, to_lang=target_lang)
-    
+        # return itranslate(text, to_lang=target_lang)
+
+        file_request = 'request.js'
+        template = f"""const translate = require('@iamtraction/google-translate');
+        translate(
+            '{text}',
+            {{from: '{source_lang}', to: '{target_lang}' }}).then(res => {{
+        console.log(res.text); }}).catch(err => {{
+        console.error(err);
+        }});
+        """
+        with open(file_request, "w", encoding="utf-8") as f:
+            f.write(template)
+        response = muterun_js(file_request)
+        return response.stdout.decode("utf-8")
+
+
     def pipeline(
         self,
         latin_text: str,
