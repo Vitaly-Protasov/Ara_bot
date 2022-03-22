@@ -19,9 +19,12 @@ def begin(message):
 @bot.message_handler(content_types=['text'])
 def text_handler(message):
     client_id = message.from_user.id
-    user_message = message.text
+    user_message = message.text.replace('\n', ' ')
 
     text, link = model.pipeline(user_message)
+    if not text:
+        text = "Something went wrong during our translation. But you still can use the link." 
+
     bot.send_message(
         chat_id = client_id,
         text = text
