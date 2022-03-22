@@ -57,5 +57,5 @@ class Functions:
     ) -> str:
         transliterated_text = self.translit(latin_text, latin_lang_code)
         link = self.get_translation_link(transliterated_text, latin_lang_code, target_lang)
-        translated_text = self.get_translation(transliterated_text, target_lang)
+        translated_text = self.get_translation(transliterated_text, latin_lang_code, target_lang)
         return translated_text, link
