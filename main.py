@@ -29,7 +29,6 @@ class Functions:
     def get_translation(
         self,
         text: str,
-        source_lang: Enum = 'ka',
         target_lang: Enum = 'ru'    
     ) -> str:
         # return itranslate(text, to_lang=target_lang)
@@ -38,7 +37,7 @@ class Functions:
         template = f"""const translate = require('@iamtraction/google-translate');
         translate(
             '{text}',
-            {{from: '{source_lang}', to: '{target_lang}' }}).then(res => {{
+            {{to: '{target_lang}' }}).then(res => {{
         console.log(res.text); }}).catch(err => {{
         console.error(err);
         }});
@@ -57,5 +56,5 @@ class Functions:
     ) -> str:
         transliterated_text = self.translit(latin_text, latin_lang_code)
         link = self.get_translation_link(transliterated_text, latin_lang_code, target_lang)
-        translated_text = self.get_translation(transliterated_text, latin_lang_code, target_lang)
+        translated_text = self.get_translation(transliterated_text, target_lang=target_lang)
         return translated_text, link
